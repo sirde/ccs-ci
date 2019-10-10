@@ -57,8 +57,12 @@ ADD simplelink_cc32xx_sdk_3_30_00_04.run /ccs_install
 RUN /ccs_install/simplelink_cc32xx_sdk_3_30_00_04.run --mode unattended
 
 # Download and install CCS
-RUN curl -L https://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_1_0/exports/CCS9.1.0.00010_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
-    && /ccs_install/ccs_setup_linux64_9.1.0.00010.bin --mode unattended --prefix /opt/ti --response-file /ccs_install/response_custom.txt \
+#ADD CCS9.2.0.00013_linux-x64 /ccs_install
+#RUN /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X
+
+
+RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_2_0/exports/CCS9.2.0.00013_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
+    && /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
     && rm -rf /ccs_install/
 #This fails silently: check result somehow
 
@@ -88,8 +92,8 @@ WORKDIR /workdir
 #RUN rm -r /opt/ti/xdctools_3_50_05_12_core
 #RUN ls -a /opt/ti
 
-ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.2.LTS/bin"
-RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.2.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
+ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/bin"
+RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
 
 # if needed
 #ENTRYPOINT []
