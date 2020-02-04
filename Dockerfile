@@ -24,7 +24,8 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y \
   python2.7                     \
   libxtst6                      \
   at-spi2-core                  \
-  binutils
+  binutils                      \
+  python3-pip
   
 # Python setup
 #RUN add-apt-repository ppa:jonathonf/python-3.6
