@@ -46,6 +46,8 @@ RUN export JAVA_TOOL_OPTIONS=-Xss1280k
 ENV PATH="/scripts:${PATH}"
 
 ADD simplelink_cc32xx_sdk_3_40_00_05.run /ccs_install
+
+RUN chmod 777 /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run
 RUN /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run --mode unattended
 
 # Download and install CCS
