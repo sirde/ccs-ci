@@ -45,10 +45,12 @@ RUN export JAVA_TOOL_OPTIONS=-Xss1280k
 
 ENV PATH="/scripts:${PATH}"
 
-ADD simplelink_cc32xx_sdk_3_40_00_05.run /ccs_install
 
-RUN chmod 777 /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run
-RUN /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run --mode unattended
+# This is stored on our private server as TI requires authentication and LFS is not supported on docker with github
+RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32xx_sdk_3_40_00_05.run \
+    && chmod 777 /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run \
+    && /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run --mode unattended \
+    && rm -rf /ccs_install/
 
 # Download and install CCS
 #ADD CCS9.2.0.00013_linux-x64 /ccs_install
