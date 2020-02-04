@@ -27,10 +27,10 @@ RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y \
   binutils
   
 # Python setup
-RUN add-apt-repository ppa:jonathonf/python-3.6
-RUN apt-get update && apt-get install -y \
-  python3-pip               \
-  python3.6
+#RUN add-apt-repository ppa:jonathonf/python-3.6
+#RUN apt-get update && apt-get install -y \
+#  python3-pip               \
+#  python3.6
 RUN pip3 install --upgrade pip
 RUN pip3 install teamcity-messages
 
