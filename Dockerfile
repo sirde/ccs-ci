@@ -39,22 +39,13 @@ WORKDIR /ccs_install
 
 RUN export JAVA_TOOL_OPTIONS=-Xss1280k
 
-#Files which define which ccs feature to install
-# Unattended response file generated on Windows using the following command:
-# ccs_setup_8.1.0.00011.exe --save-response-file C:\ccs_installer_responses.txt --skip-install true
-COPY response_custom.txt /ccs_install
-
-COPY xdctools_3_50_08_24_core/ /opt/ti/xdctools_3_50_08_24_core
-ENV XDCPATH = "/opt/ti/xdctools_3_50_08_24_core"
-ENV XDC_INSTALL_DIR = "/opt/ti/xdctools_3_50_08_24_core"
-
 # Install ccs in unattended mode
 #https://e2e.ti.com/support/development_tools/code_composer_studio/f/81/t/374161
 
 ENV PATH="/scripts:${PATH}"
 
-ADD simplelink_cc32xx_sdk_3_30_00_04.run /ccs_install
-RUN /ccs_install/simplelink_cc32xx_sdk_3_30_00_04.run --mode unattended
+ADD simplelink_cc32xx_sdk_3_40_00_05.run /ccs_install
+RUN /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run --mode unattended
 
 # Download and install CCS
 #ADD CCS9.2.0.00013_linux-x64 /ccs_install
@@ -66,20 +57,24 @@ RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_2_0/exports/CCS9.2.0.0
     && rm -rf /ccs_install/
 #This fails silently: check result somehow
 
-#RUN file /ccs_install/ccs_setup_linux64_8.3.0.00009.bin
-#RUN /ccs_install/CCS8.3.0.00009_linux-x64/ccs_setup_linux64_8.3.0.00009.bin --mode unattended --prefix /opt/ti --response-file /ccs_install/response_custom.txt
 
+#Install latest compiler
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/18.12.2.LTS/ti_cgt_tms470_18.12.2.LTS_linux_installer_x86.bin \
-    && chmod 777 /ccs_install/ti_cgt_tms470_18.12.2.LTS_linux_installer_x86.bin \
+    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/18.12.4.LTS/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
-    && /ccs_install/ti_cgt_tms470_18.12.2.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && /ccs_install/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
     && rm -rf /ccs_install/
 
-# TODO: do this in the same step as the ADD and RUN install to remove 800MB in the image.
-#RUN rm -r /ccs_install
+RUN cd /ccs_install \
+    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.4.LTS/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
+    && ls -l /ccs_install \
+    && /ccs_install/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && rm -rf /ccs_install/
 
-ENV PATH="/opt/ti/ccsv8/eclipse:${PATH}"
+
+ENV PATH="/opt/ti/ccs/eclipse:${PATH}"
 
 # workspace folder for CCS
 RUN mkdir /workspace
@@ -88,10 +83,7 @@ RUN mkdir /workspace
 VOLUME /workdir
 WORKDIR /workdir
 
-#RUN echo $XDCPATH
-#RUN rm -r /opt/ti/xdctools_3_50_05_12_core
-#RUN ls -a /opt/ti
-
+# Pre compile libraries needed for the msp to avoid 6min compile during each build
 ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/bin"
 RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
 

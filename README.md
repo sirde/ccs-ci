@@ -1,3 +1,19 @@
-Ubuntu with Code Composer Studio installed for continues integration purpose.
+# ccs-ci
+Dockerfile to build a code composer studio container for continues integration/build/test
 
-It can compile for among other: msp430 and cc3220.
+# To download on TI site :
+
+
+# To use it:
+ 
+## build
+docker build -t ccs .
+
+## run
+docker run -ti -v C:\\workspace\\roomzscreen:/workdir ccs /bin/bash
+
+## import project
+/opt/ti/ccs/eclipse/eclipse -noSplash -data "/workspace" -application com.ti.ccstudio.apps.projectImport -ccs.location /workdir/<projectName>/
+
+## build
+/opt/ti/ccs/eclipse/eclipse -noSplash -data "/workspace" -application com.ti.ccstudio.apps.projectBuild  -ccs.workspace -ccs.setBuildOption com.ti.ccstudio.buildDefinitions.C6000_6.1.compilerID.QUIET_LEVEL com.ti.ccstudio.buildDefinitions.C6000_6.1.compilerID.QUIET_LEVEL.VERBOSE
