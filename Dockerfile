@@ -72,7 +72,7 @@ RUN cd /ccs_install \
     && rm -rf /ccs_install/
 
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.5.LTS/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
+    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.5.LTS/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin \
     && chmod 777 /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
     && /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
