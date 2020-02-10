@@ -90,7 +90,7 @@ WORKDIR /workdir
 
 # Pre compile libraries needed for the msp to avoid 6min compile during each build
 ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/bin"
-RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.5.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
+RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
 
 # if needed
 #ENTRYPOINT []
