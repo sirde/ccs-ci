@@ -65,17 +65,17 @@ RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_2_0/exports/CCS9.2.0.0
 
 #Install latest compiler
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/18.12.4.LTS/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin \
-    && chmod 777 /ccs_install/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin \
+    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/18.12.5.LTS/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
-    && /ccs_install/ti_cgt_tms470_18.12.4.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && /ccs_install/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
     && rm -rf /ccs_install/
 
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.4.LTS/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
-    && chmod 777 /ccs_install/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
+    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.5.LTS/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
-    && /ccs_install/ti_cgt_msp430_18.12.4.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
     && rm -rf /ccs_install/
 
 
@@ -90,7 +90,7 @@ WORKDIR /workdir
 
 # Pre compile libraries needed for the msp to avoid 6min compile during each build
 ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/bin"
-RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
+RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.5.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
 
 # if needed
 #ENTRYPOINT []
