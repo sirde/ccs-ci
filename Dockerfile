@@ -57,8 +57,8 @@ RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32x
 #RUN /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X
 
 
-RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_2_0/exports/CCS9.2.0.00013_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
-    && /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
+RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_3_0/exports/CCS9.3.0.00012_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
+    && /ccs_install/ccs_setup_9.3.0.00012.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
     && rm -rf /ccs_install/
 #This fails silently: check result somehow
 
