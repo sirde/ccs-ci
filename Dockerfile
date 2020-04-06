@@ -47,9 +47,9 @@ ENV PATH="/scripts:${PATH}"
 
 
 # This is stored on our private server as TI requires authentication and LFS is not supported on docker with github
-RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32xx_sdk_3_40_00_05.run \
-    && chmod 777 /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run \
-    && /ccs_install/simplelink_cc32xx_sdk_3_40_00_05.run --mode unattended \
+RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32xx_sdk_4_10_00_07.run \
+    && chmod 777 /ccs_install/simplelink_cc32xx_sdk_4_10_00_07.run \
+    && /ccs_install/simplelink_cc32xx_sdk_4_10_00_07.run --mode unattended \
     && rm -rf /ccs_install/
 
 # Download and install CCS
@@ -57,8 +57,8 @@ RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32x
 #RUN /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X
 
 
-RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv9/CCS_9_3_0/exports/CCS9.3.0.00012_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
-    && /ccs_install/ccs_setup_9.3.0.00012.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
+RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv10/CCS_10_0_0/exports/CCS10.0.0.00010_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
+    && /ccs_install/ccs_setup_10.0.0.00010.run --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
     && rm -rf /ccs_install/
 #This fails silently: check result somehow
 
@@ -89,8 +89,8 @@ VOLUME /workdir
 WORKDIR /workdir
 
 # Pre compile libraries needed for the msp to avoid 6min compile during each build
-ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/bin"
-RUN /opt/ti/ccs/tools/compiler/ti-cgt-msp430_18.12.3.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
+ENV PATH="${PATH}:/opt/ti/ccs/tools/compiler/ti-cgt-arm_20.2.0.LTS/bin"
+#RUN /opt/ti/ccs/tools/compiler/ti-cgt-arm_20.2.0.LTS/lib/mklib --pattern=rts430x_sc_sd_eabi.lib
 
 # if needed
 #ENTRYPOINT []
