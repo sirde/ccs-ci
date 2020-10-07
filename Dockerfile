@@ -47,9 +47,9 @@ ENV PATH="/scripts:${PATH}"
 
 
 # This is stored on our private server as TI requires authentication and LFS is not supported on docker with github
-RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32xx_sdk_4_10_00_07.run \
-    && chmod 777 /ccs_install/simplelink_cc32xx_sdk_4_10_00_07.run \
-    && /ccs_install/simplelink_cc32xx_sdk_4_10_00_07.run --mode unattended \
+RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32xx_sdk_4_30_00_06.run \
+    && chmod 777 /ccs_install/simplelink_cc32xx_sdk_4_30_00_06.run \
+    && /ccs_install/simplelink_cc32xx_sdk_4_30_00_06.run --mode unattended \
     && rm -rf /ccs_install/
 
 # Download and install CCS
@@ -57,25 +57,27 @@ RUN wget -q https://roomzproduction.blob.core.windows.net/tools/simplelink_cc32x
 #RUN /ccs_install/ccs_setup_9.2.0.00013.bin --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X
 
 
-RUN curl -L http://software-dl.ti.com/ccs/esd/CCSv10/CCS_10_0_0/exports/CCS10.0.0.00010_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
-    && /ccs_install/ccs_setup_10.0.0.00010.run --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
+RUN curl -L https://software-dl.ti.com/ccs/esd/CCSv10/CCS_10_1_1/exports/CCS10.1.1.00004_linux-x64.tar.gz | tar xvz --strip-components=1 -C /ccs_install \
+    && /ccs_install/ccs_setup_10.1.1.00004.run --mode unattended --prefix /opt/ti --enable-components PF_MSP430,PF_CC3X \
     && rm -rf /ccs_install/
 #This fails silently: check result somehow
 
 
 #Install latest compiler
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/18.12.5.LTS/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin \
-    && chmod 777 /ccs_install/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin \
+    && wget -q https://software-dl.ti.com/codegen/esd/cgt_public_sw/TMS470/20.2.2.LTS/ti_cgt_tms470_20.2.2.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_tms470_20.2.2.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
-    && /ccs_install/ti_cgt_tms470_18.12.5.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && /ccs_install/ti_cgt_tms470_20.2.2.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
     && rm -rf /ccs_install/
 
+
+
 RUN cd /ccs_install \
-    && wget -q http://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/18.12.5.LTS/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin \
-    && chmod 777 /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin \
+    && wget -q https://software-dl.ti.com/codegen/esd/cgt_public_sw/MSP430/20.2.2.LTS/ti_cgt_msp430_20.2.2.LTS_linux_installer_x86.bin \
+    && chmod 777 /ccs_install/ti_cgt_msp430_20.2.2.LTS_linux_installer_x86.bin \
     && ls -l /ccs_install \
-    && /ccs_install/ti_cgt_msp430_18.12.5.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
+    && /ccs_install/ti_cgt_msp430_20.2.2.LTS_linux_installer_x86.bin --prefix /opt/ti --unattendedmodeui minimal \
     && rm -rf /ccs_install/
 
 
